@@ -10,6 +10,7 @@ resource "aws_s3_bucket" "data" {
   tags = {
     Name        = "${local.resource_prefix.value}-data"
     Environment = local.resource_prefix.value
+    git_org     = "gmarkarian-org"
   }
 }
 
@@ -19,7 +20,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "data" {
 
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm     = "AES256"
+      sse_algorithm = "AES256"
     }
   }
 }
@@ -36,6 +37,9 @@ resource "aws_s3_bucket_versioning" "data" {
 
 resource "aws_s3_bucket" "data_log_bucket" {
   bucket = "data-log-bucket"
+  tags = {
+    git_org = "gmarkarian-org"
+  }
 }
 
 resource "aws_s3_bucket_logging" "data" {
@@ -47,12 +51,13 @@ resource "aws_s3_bucket_logging" "data" {
 
 resource "aws_s3_bucket_object" "data_object" {
   bucket = aws_s3_bucket.data.id
-  region        = "us-west-2"
+  region = "us-west-2"
   key    = "customer-master.xlsx"
   source = "resources/customer-master.xlsx"
   tags = {
     Name        = "${local.resource_prefix.value}-customer-master"
     Environment = local.resource_prefix.value
+    git_org     = "gmarkarian-org"
   }
 }
 
@@ -67,6 +72,7 @@ resource "aws_s3_bucket" "financials" {
   tags = {
     Name        = "${local.resource_prefix.value}-financials"
     Environment = local.resource_prefix.value
+    git_org     = "gmarkarian-org"
   }
 
 }
@@ -74,6 +80,9 @@ resource "aws_s3_bucket" "financials" {
 
 resource "aws_s3_bucket" "financials_log_bucket" {
   bucket = "financials-log-bucket"
+  tags = {
+    git_org = "gmarkarian-org"
+  }
 }
 
 resource "aws_s3_bucket_logging" "financials" {
@@ -99,7 +108,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "financials" {
 
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm     = "AES256"
+      sse_algorithm = "AES256"
     }
   }
 }
@@ -108,7 +117,7 @@ resource "aws_s3_bucket" "operations" {
   # bucket is not encrypted
   # bucket does not have access logs
   bucket = "${local.resource_prefix.value}-operations"
-  region        = "us-west-2"
+  region = "us-west-2"
   acl    = "private"
   versioning {
     enabled = true
@@ -117,6 +126,7 @@ resource "aws_s3_bucket" "operations" {
   tags = {
     Name        = "${local.resource_prefix.value}-operations"
     Environment = local.resource_prefix.value
+    git_org     = "gmarkarian-org"
   }
 
 }
@@ -124,6 +134,9 @@ resource "aws_s3_bucket" "operations" {
 
 resource "aws_s3_bucket" "operations_log_bucket" {
   bucket = "operations-log-bucket"
+  tags = {
+    git_org = "gmarkarian-org"
+  }
 }
 
 resource "aws_s3_bucket_logging" "operations" {
@@ -140,7 +153,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "operations" {
 
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm     = "AES256"
+      sse_algorithm = "AES256"
     }
   }
 }
@@ -148,7 +161,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "operations" {
 resource "aws_s3_bucket" "data_science" {
   # bucket is not encrypted
   bucket = "${local.resource_prefix.value}-data-science"
-  region        = "us-west-2"
+  region = "us-west-2"
   acl    = "private"
   versioning {
     enabled = true
@@ -158,6 +171,9 @@ resource "aws_s3_bucket" "data_science" {
     target_prefix = "log/"
   }
   force_destroy = true
+  tags = {
+    git_org = "gmarkarian-org"
+  }
 }
 
 
@@ -166,7 +182,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "data_science" {
 
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm     = "AES256"
+      sse_algorithm = "AES256"
     }
   }
 }
@@ -191,12 +207,16 @@ resource "aws_s3_bucket" "logs" {
   tags = {
     Name        = "${local.resource_prefix.value}-logs"
     Environment = local.resource_prefix.value
+    git_org     = "gmarkarian-org"
   }
 }
 
 
 resource "aws_s3_bucket" "logs_log_bucket" {
   bucket = "logs-log-bucket"
+  tags = {
+    git_org = "gmarkarian-org"
+  }
 }
 
 resource "aws_s3_bucket_logging" "logs" {
